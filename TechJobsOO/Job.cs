@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 namespace TechJobsOO
 {
     public class Job
@@ -44,50 +46,43 @@ namespace TechJobsOO
 
         public override string ToString()
         {
-            string returnText = "";
+            string returnValue = "\n";
             int count = 0;
-
-            returnText += "\nID: " + Id + "\n";
-            returnText += "Name: ";
-            if (Name == null || Name == "")
+            int index = 0;
+            returnValue += "ID: " + Id + "\n";
+            returnValue += "Name: " + returnValToString<string>(Name);
+            returnValue += "Employer: " + returnValToString<Employer>(EmployerName);
+            returnValue += "Location: " + returnValToString<Location>(EmployerLocation);
+            returnValue += "Position Type: " + returnValToString<PositionType>(JobType);
+            returnValue += "Core Competency: " + returnValToString<CoreCompetency>(JobCoreCompetency) + "\n";
+            while (index != -1)
             {
-                returnText += "Data not available";
-                count++;
+                index = returnValue.IndexOf("Data not available", index);
+                if (index != -1)
+                {
+                    count++;
+                    index++;
+                }
             }
-            else returnText += Name;
-            returnText += "\nEmployer: ";
-            if (EmployerName==null || EmployerName.ToString() == null || EmployerName.ToString() == "")
+            if (count == 5) returnValue = "\nOOPS! This job does not seem to exist.\n";
+            return returnValue;
+        }
+        public string returnValToString<T>(T obj)
+        {
+            string returnVal = "";
+            try
             {
-                returnText += "Data not available";
-                count++;
+                string temp = obj.ToString();
+                if (temp == "" || temp == null)
+                    returnVal = "Data not available";
+                else
+                    returnVal = temp;
             }
-            else returnText += EmployerName.ToString();
-            returnText += "\nLocation: ";
-            if (EmployerLocation ==null ||  EmployerLocation.ToString() == null || EmployerLocation.ToString() == "")
+            catch(NullReferenceException)
             {
-                returnText += "Data not available";
-                count++;
+                returnVal = "Data not available";
             }
-            else returnText += EmployerLocation.ToString();
-            returnText += "\nPosition Type: ";
-            if (JobType == null || JobType.ToString() == null || JobType.ToString() == "")
-            {
-                returnText += "Data not available";
-                count++;
-            }
-            else returnText += JobType.ToString();
-            returnText += "\nCore Competency: ";
-            if (JobCoreCompetency == null || JobCoreCompetency.ToString() == null || JobCoreCompetency.ToString() == "")
-            {
-                returnText += "Data not available";
-                count++;
-            }
-            else returnText += JobCoreCompetency.ToString();
-            returnText += "\n";
-
-            if (count == 5) returnText = "OOPS! This job does not seem to exist.";
-
-            return returnText;
+            return returnVal + "\n";
         }
     }
 }

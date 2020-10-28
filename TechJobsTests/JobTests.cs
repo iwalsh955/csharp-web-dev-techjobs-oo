@@ -69,11 +69,11 @@ namespace TechJobsTests
         {
             Job j1 = new Job();
             string text = j1.ToString();
-            Assert.IsTrue(text == "OOPS! This job does not seem to exist.");
+            Assert.IsTrue(text == "\nOOPS! This job does not seem to exist.\n");
             Job j2 = new Job("", new Employer(), new Location(), new PositionType()
                 , new CoreCompetency());
             text = j2.ToString();
-            Assert.IsTrue(text == "OOPS! This job does not seem to exist.");
+            Assert.IsTrue(text == "\nOOPS! This job does not seem to exist.\n");
         }
     }
 }
