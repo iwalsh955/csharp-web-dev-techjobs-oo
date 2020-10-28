@@ -14,6 +14,80 @@ namespace TechJobsOO
 
         // TODO: Add the two necessary constructors.
 
+        public Job()
+        {
+            Id = nextId;
+            nextId++;
+        }
+
+        public Job(string name, Employer employeeName, Location employerLocation, PositionType jobType, CoreCompetency jobCoreCompetency) : this()
+        {
+            Name = name;
+            EmployerName = employeeName;
+            EmployerLocation = employerLocation;
+            JobType = jobType;
+            JobCoreCompetency = jobCoreCompetency;
+        }
+
         // TODO: Generate Equals() and GetHashCode() methods.
+
+        public override bool Equals(object obj)
+        {
+            return obj is Job job &&
+                   Id == job.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
+        public override string ToString()
+        {
+            string returnText = "";
+            int count = 0;
+
+            returnText += "\nID: " + Id + "\n";
+            returnText += "Name: ";
+            if (Name == null || Name == "")
+            {
+                returnText += "Data not available";
+                count++;
+            }
+            else returnText += Name;
+            returnText += "\nEmployer: ";
+            if (EmployerName==null || EmployerName.ToString() == null || EmployerName.ToString() == "")
+            {
+                returnText += "Data not available";
+                count++;
+            }
+            else returnText += EmployerName.ToString();
+            returnText += "\nLocation: ";
+            if (EmployerLocation ==null ||  EmployerLocation.ToString() == null || EmployerLocation.ToString() == "")
+            {
+                returnText += "Data not available";
+                count++;
+            }
+            else returnText += EmployerLocation.ToString();
+            returnText += "\nPosition Type: ";
+            if (JobType == null || JobType.ToString() == null || JobType.ToString() == "")
+            {
+                returnText += "Data not available";
+                count++;
+            }
+            else returnText += JobType.ToString();
+            returnText += "\nCore Competency: ";
+            if (JobCoreCompetency == null || JobCoreCompetency.ToString() == null || JobCoreCompetency.ToString() == "")
+            {
+                returnText += "Data not available";
+                count++;
+            }
+            else returnText += JobCoreCompetency.ToString();
+            returnText += "\n";
+
+            if (count == 5) returnText = "OOPS! This job does not seem to exist.";
+
+            return returnText;
+        }
     }
 }
